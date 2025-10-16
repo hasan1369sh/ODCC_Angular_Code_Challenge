@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'vazir';
+  src: url(/fonts/Vazir.eot) format('eot'),
+          url(/fonts/Vazir.woff) format('woff'),
+          url(/fonts/Vazir.woff2) format('woff2');
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'vazir';
+}
