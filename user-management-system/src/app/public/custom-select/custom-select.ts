@@ -19,7 +19,6 @@ export class CustomSelect implements ControlValueAccessor {
   @Input() name: string = '';
   @Input() options: any[] = [];
   @Input() label: string = '';
-  @Input() placeholder: string = 'انتخاب کنید';
   @Input() disabled: boolean = false;
   @Input() isRequired: boolean = true;
   @Input() width: string = '100%';

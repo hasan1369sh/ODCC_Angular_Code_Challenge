@@ -31,7 +31,7 @@ export class DatePicker implements ControlValueAccessor {
   uiTheme: IDatepickerTheme = defaultTheme;
   uiYearView: boolean = true;
   uiMonthView: boolean = true;
-  uiHideAfterSelectDate: boolean = false;
+  uiHideAfterSelectDate: boolean = true;
   uiHideOnOutsideClick: boolean = true;
   uiTodayBtnEnable: boolean = true;
 
@@ -45,6 +45,8 @@ export class DatePicker implements ControlValueAccessor {
   writeValue(value: any): void {
     if (value) {
       this.dateValue.setValue(value);
+    } else {
+      this.dateValue.setValue(null);
     }
   }
 

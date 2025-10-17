@@ -1,0 +1,40 @@
+<div class="photo-upload-container" (click)="$event.stopPropagation()">
+  <!-- نمایش عکس -->
+  <div class="photo-preview" [class.has-photo]="profilePhoto">
+    @if(profilePhoto){
+    <img [src]="profilePhoto" alt="عکس پروفایل" class="profile-image" />
+    } @else {
+    <div class="placeholder">
+      <span style="color:red; margin: 8px 0 0 5px">*</span>
+      <span>عکس پروفایل</span>
+    </div>
+    }
+  </div>
+
+  <!-- دکمه آپلود -->
+  <div class="upload-controls">
+    <input
+      type="file"
+      id="fileInput"
+      #fileInput
+      (change)="onFileSelected($event)"
+      (click)="$event.stopPropagation()"
+      accept="image/jpeg, image/png, image/jpg"
+      style="display: none"
+    />
+    <app-custom-btn
+      style="width: fit-content; margin: 0 auto"
+      [disabled]="disabled"
+      [backgroundColor]="'rgb(17, 109, 248)'"
+      [textColor]="'white'"
+      [text]="'انتخاب تصویر'"
+      (click)="triggerFileInput($event)"
+    ></app-custom-btn>
+  </div>
+
+  <!-- راهنما -->
+  <div class="upload-info">
+    <p>• فرمت‌های مجاز: JPG, PNG</p>
+    <p>• حداکثر حجم: 2MB</p>
+  </div>
+</div>

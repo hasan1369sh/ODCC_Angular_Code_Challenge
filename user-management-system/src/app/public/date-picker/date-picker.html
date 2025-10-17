@@ -1,9 +1,9 @@
 <div class="date-box" [style.width]="width">
   <p class="label">
     @if(isRequired){
-      <span class="required">*</span>
+    <span class="required">*</span>
     }
-    {{label}}
+    {{ label }}
   </p>
   <ng-persian-datepicker
     (dateOnSelect)="onSelect($event)"
@@ -22,6 +22,10 @@
   >
     <div class="input-field">
       <input
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
         class="input"
         type="text"
         [formControl]="dateValue"
@@ -29,6 +33,7 @@
         [disabled]="disabled"
         [name]="name"
         (blur)="onTouched()"
+        placeholder="YYYY/MM/DD"
       />
     </div>
   </ng-persian-datepicker>

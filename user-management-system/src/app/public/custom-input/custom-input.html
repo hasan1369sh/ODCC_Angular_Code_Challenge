@@ -1,16 +1,18 @@
 <div class="input-box" [style.width]="width">
   <p class="label">
     @if(isRequired){
-      <span class="required">*</span>
+    <span class="required">*</span>
     }
-    {{label}}
+    {{ label }}
   </p>
   <input
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="off"
+    spellcheck="false"
     [name]="name"
     class="input"
     [type]="type"
-    [attr.maxlength]="maxLength"
-    [attr.minlength]="minLength"
     [disabled]="disabled"
     [placeholder]="placeholder"
     [value]="value"

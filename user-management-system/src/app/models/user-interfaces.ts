@@ -12,5 +12,5 @@ export class User {
   education: Education | null = null;
   profilePhoto: string = '';
   nationalId: number = 0;
-  birthDate: string = '';
+  birthDate: string | null = null;
 }

@@ -12,6 +12,7 @@ import { DatePicker } from './public/date-picker/date-picker';
 import { CustomBtn } from './public/custom-btn/custom-btn';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PhotoUpload } from './public/photo-upload/photo-upload';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CommonModule } from '@angular/common';
     CustomInput,
     CustomSelect,
     DatePicker,
-    CustomBtn
+    CustomBtn,
+    PhotoUpload
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,13 @@
-  <form class="container-add-user" #userInfo (ngSubmit)="addNewUser()">
+<p class="form-title">اطلاعات کاربر</p>
+<form class="container-add-user" #userForm="ngForm" (ngSubmit)="addNewUser()">
+  <!-- Body -->
+  <div class="form-body">
     <div class="info-user">
       <!-- FirstName -->
       <app-custom-input
         [label]="'نام'"
         [(ngModel)]="user.firstName"
         [disabled]="!isNewUser"
-        [minLength]="3"
         [name]="'first_name'"
       ></app-custom-input>
       <!-- LasttName -->
@@ -13,7 +15,6 @@
         [label]="'نام خانوادگی'"
         [(ngModel)]="user.lastName"
         [disabled]="!isNewUser"
-        [minLength]="3"
         [name]="'last_name'"
       ></app-custom-input>
       <!-- Age -->
@@ -21,7 +22,6 @@
         [label]="'سن'"
         [(ngModel)]="user.age"
         [disabled]="!isNewUser"
-        [minLength]="2"
         [name]="'age'"
       ></app-custom-input>
       <!-- National Id -->
@@ -29,8 +29,6 @@
         [label]="'شناسه ملی'"
         [(ngModel)]="user.nationalId"
         [disabled]="!isNewUser"
-        [minLength]="10"
-        [maxLength]="10"
         [name]="'national_id'"
       ></app-custom-input>
       <!-- Education -->
@@ -49,7 +47,27 @@
         [name]="'birth_date'"
       ></app-date-picker>
     </div>
+    <!-- Upload Photo -->
     <div class="photo-user">
-
+      <app-photo-upload [disabled]="!isNewUser" [(profilePhoto)]="user.profilePhoto">
+      </app-photo-upload>
     </div>
-  </form>
+  </div>
+  <!-- Footer -->
+  <div class="form-footer">
+    <app-custom-btn
+      [text]="'انصراف'"
+      [backgroundColor]="'white'"
+      [textColor]="'gray'"
+      [border]="'1px solid gray'"
+      [disabled]="!isNewUser"
+      (click)="onCancel()"
+    ></app-custom-btn>
+    <app-custom-btn
+      [text]="'افزودن کاربر'"
+      [backgroundColor]="'rgb(17, 109, 248)'"
+      [textColor]="'white'"
+      [disabled]="!isNewUser"
+    ></app-custom-btn>
+  </div>
+</form>

@@ -18,8 +18,6 @@ export class CustomInput implements ControlValueAccessor { // اضافه کرد�
 
   @Input() label: string = '';
   @Input() isRequired: boolean = true;
-  @Input() maxLength: number = 100;
-  @Input() minLength: number = 2;
   @Input() disabled: boolean = false;
   @Input() width: string = '100%';
   @Input() name: string = '';
