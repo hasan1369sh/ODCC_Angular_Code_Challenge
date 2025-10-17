@@ -1,0 +1,20 @@
+<div class="input-box" [style.width]="width">
+  <p class="label">
+    @if(isRequired){
+      <span class="required">*</span>
+    }
+    {{label}}
+  </p>
+  <input
+    [name]="name"
+    class="input"
+    [type]="type"
+    [attr.maxlength]="maxLength"
+    [attr.minlength]="minLength"
+    [disabled]="disabled"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInputChange($event)"
+    (blur)="onBlur()"
+  />
+</div>

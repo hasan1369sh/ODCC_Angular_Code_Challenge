@@ -1,0 +1,25 @@
+.container-add-user {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 20px;
+}
+
+.info-user {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  align-items: start;
+}
+
+app-custom-input,
+app-custom-select,
+app-date-picker {
+  margin: 0 !important;
+}
+
+.photo-user{
+  width: 400px;
+  height: fit-content;
+  flex-shrink: 0;
+}

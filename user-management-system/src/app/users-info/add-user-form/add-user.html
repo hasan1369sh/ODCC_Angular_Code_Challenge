@@ -1,1 +1,55 @@
-<p>add-user works!</p>
+  <form class="container-add-user" #userInfo (ngSubmit)="addNewUser()">
+    <div class="info-user">
+      <!-- FirstName -->
+      <app-custom-input
+        [label]="'نام'"
+        [(ngModel)]="user.firstName"
+        [disabled]="!isNewUser"
+        [minLength]="3"
+        [name]="'first_name'"
+      ></app-custom-input>
+      <!-- LasttName -->
+      <app-custom-input
+        [label]="'نام خانوادگی'"
+        [(ngModel)]="user.lastName"
+        [disabled]="!isNewUser"
+        [minLength]="3"
+        [name]="'last_name'"
+      ></app-custom-input>
+      <!-- Age -->
+      <app-custom-input
+        [label]="'سن'"
+        [(ngModel)]="user.age"
+        [disabled]="!isNewUser"
+        [minLength]="2"
+        [name]="'age'"
+      ></app-custom-input>
+      <!-- National Id -->
+      <app-custom-input
+        [label]="'شناسه ملی'"
+        [(ngModel)]="user.nationalId"
+        [disabled]="!isNewUser"
+        [minLength]="10"
+        [maxLength]="10"
+        [name]="'national_id'"
+      ></app-custom-input>
+      <!-- Education -->
+      <app-custom-select
+        [label]="'تحصیلات'"
+        [(ngModel)]="user.education"
+        [disabled]="!isNewUser"
+        [name]="'education'"
+        [options]="educations"
+      ></app-custom-select>
+      <!-- Birth Date -->
+      <app-date-picker
+        [disabled]="!isNewUser"
+        [label]="'تاریخ تولد'"
+        [(ngModel)]="user.birthDate"
+        [name]="'birth_date'"
+      ></app-date-picker>
+    </div>
+    <div class="photo-user">
+
+    </div>
+  </form>

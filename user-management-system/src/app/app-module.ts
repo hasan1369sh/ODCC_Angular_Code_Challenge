@@ -1,22 +1,36 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './header/header';
 import { UsersInfo } from './users-info/users-info';
 import { AddUser } from './users-info/add-user-form/add-user';
+import { CustomInput } from './public/custom-input/custom-input';
+import { CustomSelect } from './public/custom-select/custom-select';
+import { DatePicker } from './public/date-picker/date-picker';
+import { CustomBtn } from './public/custom-btn/custom-btn';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     App,
     Header,
     UsersInfo,
-    AddUser
+    AddUser,
+    CustomInput,
+    CustomSelect,
+    DatePicker,
+    CustomBtn
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgPersianDatepickerModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()

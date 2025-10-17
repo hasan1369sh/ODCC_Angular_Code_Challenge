@@ -1,0 +1,12 @@
+<button
+  class="custom-btn"
+  [disabled]="disabled"
+  [style.border]="border"
+  [style.background-color]="backgroundColor"
+  [style.color]="textColor"
+>
+  {{ text }}
+  @if(hasIcon){
+  <ng-content select="[icon]"></ng-content>
+  }
+</button>

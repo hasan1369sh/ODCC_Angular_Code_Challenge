@@ -1,0 +1,35 @@
+<div class="date-box" [style.width]="width">
+  <p class="label">
+    @if(isRequired){
+      <span class="required">*</span>
+    }
+    {{label}}
+  </p>
+  <ng-persian-datepicker
+    (dateOnSelect)="onSelect($event)"
+    [dateFormat]="'YYYY/MM/DD'"
+    [dateGregorianFormat]="'YYYY-MM-DD'"
+    [(uiIsVisible)]="uiIsVisible"
+    [uiTheme]="uiTheme"
+    [uiYearView]="uiYearView"
+    [uiMonthView]="uiMonthView"
+    [uiHideAfterSelectDate]="uiHideAfterSelectDate"
+    [uiHideOnOutsideClick]="uiHideOnOutsideClick"
+    [uiTodayBtnEnable]="uiTodayBtnEnable"
+    [timeEnable]="timeEnable"
+    [timeShowSecond]="timeShowSecond"
+    [timeMeridian]="timeMeridian"
+  >
+    <div class="input-field">
+      <input
+        class="input"
+        type="text"
+        [formControl]="dateValue"
+        aria-label="Datepicker Input"
+        [disabled]="disabled"
+        [name]="name"
+        (blur)="onTouched()"
+      />
+    </div>
+  </ng-persian-datepicker>
+</div>

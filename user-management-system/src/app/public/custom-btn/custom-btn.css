@@ -1,0 +1,11 @@
+.custom-btn {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  width: fit-content;
+  padding: 5px 8px;
+  border-radius: 3px;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
