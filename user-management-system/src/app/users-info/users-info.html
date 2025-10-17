@@ -1,6 +1,124 @@
 <div class="container-fluid">
   <div class="add-user-form">
-    <app-add-user></app-add-user>
+    <app-add-user (refreshGrid)="refreshDxGrid()"></app-add-user>
   </div>
-  <div class="users-list"></div>
+  <div class="users-list">
+    <p class="list-title">لیست کاربران</p>
+    <dx-data-grid
+      style="width: 100%; height: fit-content"
+      #dataGrid
+      id="dataGrid"
+      [dataSource]="users"
+      [keyExpr]="'id'"
+      [noDataText]="'کاربری یافت نشد'"
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="false"
+      [showBorders]="true"
+      [showRowLines]="true"
+      [rowAlternationEnabled]="true"
+      [hoverStateEnabled]="true"
+      [allowColumnReordering]="true"
+      [filterRow]="{ visible: true }"
+      [searchPanel]="{ visible: true, placeholder: 'جستجو در کاربران...' }"
+      [paging]="{ pageSize: 10, pageIndex: 0 }"
+      [editing]="{
+        mode: 'popup',
+        allowUpdating: true,
+        allowAdding: false,
+        allowDeleting: false,
+        useIcons: true,
+        popup: {
+          title: 'ویرایش اطلاعات کاربر',
+          showTitle: true,
+          width: 500,
+          height: 'auto'
+        },
+        form: {
+          colCount: 2,
+          items: [
+            { dataField: 'firstName', label: { text: 'نام' } },
+            { dataField: 'lastName', label: { text: 'نام خانوادگی' } },
+            { dataField: 'age', label: { text: 'سن' } },
+            { dataField: 'education', label: { text: 'تحصیلات' } },
+            { dataField: 'nationalId', label: { text: 'کد ملی' } },
+            { dataField: 'birthDate', label: { text: 'تاریخ تولد' }, editorType: 'dxDateBox' }
+          ]
+        },
+        texts: {
+          saveRowChanges: 'ذخیره',
+          cancelRowChanges: 'انصراف'
+        }
+      }"
+      [columnMinWidth]="100"
+      [wordWrapEnabled]="true"
+      (onRowClick)="selectedUser($event)"
+      (onRowUpdated)="onRowUpdated($event)"
+    >
+      <!-- تصویر -->
+      <dxi-column
+        caption="تصویر کاربر"
+        dataField="profilePhoto"
+        [allowSorting]="false"
+        [allowFiltering]="false"
+        cellTemplate="photoTemplate"
+        [width]="120"
+        alignment="center"
+      >
+      </dxi-column>
+
+      <dxi-column alignment="center" caption="نام" dataField="firstName" [width]="120"></dxi-column>
+      <dxi-column
+        alignment="center"
+        caption="نام خانوادگی"
+        dataField="lastName"
+        [width]="120"
+      ></dxi-column>
+      <dxi-column
+        alignment="center"
+        caption="سن"
+        dataField="age"
+        dataType="number"
+        [width]="80"
+      ></dxi-column>
+      <dxi-column
+        alignment="center"
+        caption="تحصیلات"
+        dataField="education"
+        [width]="130"
+      ></dxi-column>
+      <dxi-column
+        alignment="center"
+        caption="کد ملی"
+        dataField="nationalId"
+        [width]="140"
+      ></dxi-column>
+      <dxi-column
+        alignment="center"
+        caption="تاریخ تولد"
+        dataField="birthDate"
+        dataType="date"
+        format="yyyy/MM/dd"
+        [width]="120"
+      ></dxi-column>
+
+      <!-- عملیات -->
+      <dxi-column caption="عملیات" type="buttons" [width]="120" alignment="center">
+        <dxi-button icon="edit" hint="ویرایش" [onClick]="onEdit"></dxi-button>
+        <dxi-button icon="trash" hint="حذف" [onClick]="onDelete"></dxi-button>
+      </dxi-column>
+
+      <!-- قالب تصویر -->
+      <div *dxTemplate="let data of 'photoTemplate'">
+        @if(data.value){
+        <img [src]="data.value" alt="Profile" class="profile-photo" />
+        }@else {
+        <ng-template #noPhoto>
+          <div class="no-photo">
+            <i class="dx-icon-user"></i>
+          </div>
+        </ng-template>
+        }
+      </div>
+    </dx-data-grid>
+  </div>
 </div>

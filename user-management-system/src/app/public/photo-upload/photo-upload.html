@@ -14,6 +14,7 @@
   <!-- دکمه آپلود -->
   <div class="upload-controls">
     <input
+    [name]="name"
       type="file"
       id="fileInput"
       #fileInput
@@ -22,7 +23,8 @@
       accept="image/jpeg, image/png, image/jpg"
       style="display: none"
     />
-    <app-custom-btn
+    @if(!disabled){
+      <app-custom-btn
       style="width: fit-content; margin: 0 auto"
       [disabled]="disabled"
       [backgroundColor]="'rgb(17, 109, 248)'"
@@ -30,11 +32,14 @@
       [text]="'انتخاب تصویر'"
       (click)="triggerFileInput($event)"
     ></app-custom-btn>
+    }
   </div>
 
   <!-- راهنما -->
-  <div class="upload-info">
+  @if(!disabled){
+    <div class="upload-info">
     <p>• فرمت‌های مجاز: JPG, PNG</p>
     <p>• حداکثر حجم: 2MB</p>
   </div>
+  }
 </div>

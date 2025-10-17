@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Education, User } from '../../models/user-interfaces';
-import { NgForm } from '@angular/forms';
 import { UserManagementService } from '../../services/user-management.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-user',
@@ -12,11 +12,29 @@ import { UserManagementService } from '../../services/user-management.service';
 export class AddUser {
 
   constructor(private userService: UserManagementService){}
-  @ViewChild('userForm') userForm!: NgForm;
+  @Output() refreshGrid: EventEmitter<boolean> = new EventEmitter()
   educations: Education[] = [];
   isNewUser: boolean = true;
   user: User = new User();
   ngOnInit(){
+    this.userService.userSubject.subscribe((res: any)=>{
+      if(res){
+        const userEducation = this.educations.find(edu => edu.value === res.education) || null;
+        this.user ={
+        id:  res.id,
+        firstName:  res.firstName,
+        lastName:  res.lastName,
+        age:  res.age,
+        education: userEducation,
+        profilePhoto:  res.profilePhoto,
+        nationalId:  res.nationalId,
+        birthDate: res.birthDate
+      }
+    }
+    });
+    this.userService.isNewUserSubject.subscribe((res:any)=>{
+      this.isNewUser = res;
+    })
     this.educations = [
       {
         id: 0,
@@ -49,53 +67,66 @@ export class AddUser {
     this.user = new User();
     this.isNewUser = true;
   }
-  addNewUser() {
-    // بررسی مقدار دهی تمامی فیلدها
+ addNewUser() {
   if (!this.userService.validateUser(this.user)) {
     return;
   }
 
-  // بررسی تکراری بودن قبل از ذخیره
-  if (this.isNationalIdDuplicate()) {
-    return;
+  const existingUsers = this.getUsersFromStorage();
+
+  if (this.isNewUser) {
+    if (this.isNationalIdDuplicate()) {
+      return;
+    }
+  } else {
+    if (this.isNationalIdDuplicateForEdit()) {
+      return;
+    }
   }
 
-  if ( this.isNewUser) {
-    // ایجاد کاربر جدید
-    const newUser = {
-      ...this.user,
-      id: this.generateId(),
-      createdAt: new Date().toISOString()
-    };
+  const updatedUser = {
+    id: this.isNewUser ? this.generateId() : this.user.id,
+    firstName: this.user.firstName,
+    lastName: this.user.lastName,
+    age: this.user.age,
+    nationalId: this.user.nationalId,
+    birthDate: this.user.birthDate.shamsi,
+    education: this.user.education?.value,
+    profilePhoto: this.user.profilePhoto
+  };
 
-    // دریافت کاربران موجود از localStorage
-    const existingUsers = this.getUsersFromStorage();
-
-    // اضافه کردن کاربر جدید
-    existingUsers.push(newUser);
-
-    // ذخیره در localStorage
-    this.saveUsersToStorage(existingUsers);
-
-    console.log('کاربر ذخیره شد:', newUser);
-    alert('کاربر با موفقیت افزوده شد');
-    this.onCancel();
+  if (this.isNewUser) {
+    existingUsers.push(updatedUser);
+  } else {
+    const index = existingUsers.findIndex(u => u.id === this.user.id);
+    if (index !== -1) {
+      existingUsers[index] = updatedUser;
+    }
   }
+
+  this.saveUsersToStorage(existingUsers);
+
+  console.log('کاربر ذخیره شد:', updatedUser);
+  let message = this.isNewUser ? 'کاربر با موفقیت افزوده شد' : 'کاربر با موفقیت به‌روزرسانی شد';
+  Swal.fire({
+          text: message,
+          icon: 'success',
+          confirmButtonText: 'تایید'
+        });
+  this.onCancel();
+  this.refreshGrid.emit();
 }
 
-// تولید ID خودکار
 generateId(): number {
   const users = this.getUsersFromStorage();
   return users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
 }
 
-// دریافت کاربران از localStorage
 getUsersFromStorage(): any[] {
   const usersJson = localStorage.getItem('users');
   return usersJson ? JSON.parse(usersJson) : [];
 }
 
-// ذخیره کاربران در localStorage
 saveUsersToStorage(users: any[]): void {
   localStorage.setItem('users', JSON.stringify(users, null, 2));
 }
@@ -106,7 +137,32 @@ isNationalIdDuplicate(): boolean {
   );
 
   if (duplicate) {
-    alert(` کاربر با کد ملی ${this.user.nationalId} قبلاً ثبت شده است`);
+    let message = ` کاربر با کد ملی ${this.user.nationalId} قبلاً ثبت شده است`;
+    Swal.fire({
+          text: message,
+          icon: 'warning',
+          confirmButtonText: 'تایید'
+        });
+    return true;
+  }
+
+  return false;
+}
+
+isNationalIdDuplicateForEdit(): boolean {
+  const users = this.getUsersFromStorage();
+  const duplicate = users.find((user: any) =>
+    user.nationalId.toString() === this.user.nationalId.toString() &&
+    user.id !== this.user.id
+  );
+
+  if (duplicate) {
+    let message = ` کاربر با کد ملی ${this.user.nationalId} قبلاً ثبت شده است`;
+    Swal.fire({
+          text: message,
+          icon: 'warning',
+          confirmButtonText: 'تایید'
+        });
     return true;
   }
 

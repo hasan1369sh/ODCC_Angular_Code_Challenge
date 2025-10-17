@@ -13,7 +13,9 @@ import { CustomBtn } from './public/custom-btn/custom-btn';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PhotoUpload } from './public/photo-upload/photo-upload';
-
+import { DxDataGridModule } from 'devextreme-angular';
+import { OnlyNumberDirective } from './directives/only-number';
+import { LettersOnlyDirective } from './directives/only-letter';
 @NgModule({
   declarations: [
     App,
@@ -24,7 +26,9 @@ import { PhotoUpload } from './public/photo-upload/photo-upload';
     CustomSelect,
     DatePicker,
     CustomBtn,
-    PhotoUpload
+    PhotoUpload,
+    OnlyNumberDirective,
+    LettersOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,8 @@ import { PhotoUpload } from './public/photo-upload/photo-upload';
     NgPersianDatepickerModule,
     ReactiveFormsModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    DxDataGridModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()

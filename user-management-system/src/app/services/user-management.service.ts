@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user-interfaces';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,11 @@ export class UserManagementService {
       user.birthDate;
 
     if (!isValid) {
-      alert('لطفاً همه مقادیر را به درستی مقداردهی کنید');
+      Swal.fire({
+          text: 'لطفا همه موارد خواسته شده را با مقادیر معتبر مقدار دهی کنید',
+          icon: 'warning',
+          confirmButtonText: 'تایید'
+        });
       return false;
     }
 

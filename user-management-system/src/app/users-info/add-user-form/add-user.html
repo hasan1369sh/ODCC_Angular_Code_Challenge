@@ -1,47 +1,41 @@
-<p class="form-title">اطلاعات کاربر</p>
-<form class="container-add-user" #userForm="ngForm" (ngSubmit)="addNewUser()">
+<p class="form-title">{{isNewUser? 'افزودن کاربر جدید' : 'نمایش و ویرایش اطلاعات کاربر انتخاب شده'}}</p>
+<div class="container-add-user">
   <!-- Body -->
   <div class="form-body">
     <div class="info-user">
       <!-- FirstName -->
-      <app-custom-input
+      <app-custom-input appLettersOnly
         [label]="'نام'"
         [(ngModel)]="user.firstName"
-        [disabled]="!isNewUser"
         [name]="'first_name'"
       ></app-custom-input>
       <!-- LasttName -->
-      <app-custom-input
+      <app-custom-input appLettersOnly
         [label]="'نام خانوادگی'"
         [(ngModel)]="user.lastName"
-        [disabled]="!isNewUser"
         [name]="'last_name'"
       ></app-custom-input>
       <!-- Age -->
-      <app-custom-input
+      <app-custom-input appOnlyNumber
         [label]="'سن'"
         [(ngModel)]="user.age"
-        [disabled]="!isNewUser"
         [name]="'age'"
       ></app-custom-input>
       <!-- National Id -->
-      <app-custom-input
+      <app-custom-input appOnlyNumber
         [label]="'شناسه ملی'"
         [(ngModel)]="user.nationalId"
-        [disabled]="!isNewUser"
         [name]="'national_id'"
       ></app-custom-input>
       <!-- Education -->
       <app-custom-select
         [label]="'تحصیلات'"
         [(ngModel)]="user.education"
-        [disabled]="!isNewUser"
         [name]="'education'"
         [options]="educations"
       ></app-custom-select>
       <!-- Birth Date -->
       <app-date-picker
-        [disabled]="!isNewUser"
         [label]="'تاریخ تولد'"
         [(ngModel)]="user.birthDate"
         [name]="'birth_date'"
@@ -49,7 +43,7 @@
     </div>
     <!-- Upload Photo -->
     <div class="photo-user">
-      <app-photo-upload [disabled]="!isNewUser" [(profilePhoto)]="user.profilePhoto">
+      <app-photo-upload [name]="'add_photo'" [(profilePhoto)]="user.profilePhoto">
       </app-photo-upload>
     </div>
   </div>
@@ -60,14 +54,13 @@
       [backgroundColor]="'white'"
       [textColor]="'gray'"
       [border]="'1px solid gray'"
-      [disabled]="!isNewUser"
       (click)="onCancel()"
     ></app-custom-btn>
-    <app-custom-btn
-      [text]="'افزودن کاربر'"
-      [backgroundColor]="'rgb(17, 109, 248)'"
+      <app-custom-btn
+      text="{{isNewUser? 'افزودن' : 'ویرایش'}}"
+      [backgroundColor]="'rgb(20 167 156)'"
       [textColor]="'white'"
-      [disabled]="!isNewUser"
+      (click)="addNewUser()"
     ></app-custom-btn>
   </div>
-</form>
+</div>
