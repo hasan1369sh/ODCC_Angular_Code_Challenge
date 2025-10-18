@@ -25,7 +25,9 @@ export class UserManagementService {
       user.nationalId &&
       user.nationalId.toString().length === 10 &&
       user.education &&
-      user.birthDate;
+      user.birthDate &&
+      user.profilePhoto &&
+      user.profilePhoto.trim().length > 0;
 
     if (!isValid) {
       Swal.fire({

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { User } from '../models/user-interfaces';
 import { UserManagementService } from '../services/user-management.service';
 import { DxDataGridComponent } from 'devextreme-angular';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users-info',
@@ -50,15 +51,22 @@ export class UsersInfo {
 
   onDelete = (e: any) => {
     const user = e.row.data;
-    if (confirm(`آیا از حذف کاربر ${user.firstName} ${user.lastName} مطمئن هستید؟`)) {
-      const index = this.users.findIndex((u) => u.id === user.id);
-      if (index !== -1) {
-        this.users.splice(index, 1);
-        localStorage.setItem(this.storageKey, JSON.stringify(this.users));
-        this.refreshDxGrid();
-        console.log('کاربر حذف شد:', user);
+    Swal.fire({
+      text: `آیا از حذف کاربر ${user.firstName} ${user.lastName} مطمئن هستید؟`,
+      showCancelButton: true,
+      confirmButtonText: 'بله',
+      cancelButtonText: 'خیر',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const index = this.users.findIndex((u) => u.id === user.id);
+        if (index !== -1) {
+          this.users.splice(index, 1);
+          localStorage.setItem(this.storageKey, JSON.stringify(this.users));
+          this.refreshDxGrid();
+          console.log('کاربر حذف شد:', user);
+        }
       }
-    }
+    });
   };
 
   selectedUser(e: any) {

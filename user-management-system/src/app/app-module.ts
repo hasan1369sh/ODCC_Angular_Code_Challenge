@@ -38,7 +38,7 @@ import { LettersOnlyDirective } from './directives/only-letter';
     CommonModule,
     FormsModule,
     DxDataGridModule
-  ],
+],
   providers: [
     provideBrowserGlobalErrorListeners()
   ],
