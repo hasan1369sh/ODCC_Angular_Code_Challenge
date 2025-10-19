@@ -5,14 +5,9 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Header } from './header/header';
 import { UsersInfo } from './users-info/users-info';
-import { AddUser } from './users-info/add-user-form/add-user';
-import { CustomInput } from './public/custom-input/custom-input';
-import { CustomSelect } from './public/custom-select/custom-select';
 import { DatePicker } from './public/date-picker/date-picker';
-import { CustomBtn } from './public/custom-btn/custom-btn';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PhotoUpload } from './public/photo-upload/photo-upload';
 import { DxDataGridModule, DxPopupComponent, DxTextBoxComponent, DxDateBoxComponent, DxSelectBoxComponent, DxFileUploaderComponent, DxButtonComponent, DxValidatorComponent } from 'devextreme-angular';
 import { OnlyNumberDirective } from './directives/only-number';
 import { LettersOnlyDirective } from './directives/only-letter';
@@ -24,12 +19,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     App,
     Header,
     UsersInfo,
-    AddUser,
-    CustomInput,
-    CustomSelect,
     DatePicker,
-    CustomBtn,
-    PhotoUpload,
     OnlyNumberDirective,
     LettersOnlyDirective
   ],

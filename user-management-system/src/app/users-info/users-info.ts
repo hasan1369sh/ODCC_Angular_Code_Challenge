@@ -39,7 +39,7 @@ export class UsersInfo {
     this.insertButtonOptions = {
       text: 'ذخیره',
       onClick: () => {
-        if ( this.popupMode?.forViewUser) {
+        if (this.popupMode?.forViewUser) {
           return;
         }
         if (!this.userService.validateUser(this.currentUser)) {
@@ -79,6 +79,11 @@ export class UsersInfo {
           text: message,
           icon: 'success',
           confirmButtonText: 'تایید',
+          backdrop: true,
+          target: document.body,
+          customClass: {
+            popup: 'custom-swal-popup',
+          },
         });
       },
     };
@@ -123,6 +128,11 @@ export class UsersInfo {
         text: message,
         icon: 'warning',
         confirmButtonText: 'تایید',
+        backdrop: true,
+        target: document.body,
+        customClass: {
+          popup: 'custom-swal-popup',
+        },
       });
       return true;
     }
@@ -144,6 +154,11 @@ export class UsersInfo {
         text: message,
         icon: 'warning',
         confirmButtonText: 'تایید',
+        backdrop: true,
+        target: document.body,
+        customClass: {
+          popup: 'custom-swal-popup',
+        },
       });
       return true;
     }
@@ -179,15 +194,15 @@ export class UsersInfo {
   selectedUser(e: any) {
     this.userService.setUser(e.data);
     this.currentUser = {
-    id: e.data.id,
-    firstName: e.data.firstName,
-    lastName: e.data.lastName,
-    age: e.data.age,
-    nationalId: e.data.nationalId,
-    education: e.data.education,
-    birthDate: e.data.birthDate,
-    profilePhoto: e.data.profilePhoto
-  };
+      id: e.data.id,
+      firstName: e.data.firstName,
+      lastName: e.data.lastName,
+      age: e.data.age,
+      nationalId: e.data.nationalId,
+      education: e.data.education,
+      birthDate: e.data.birthDate,
+      profilePhoto: e.data.profilePhoto,
+    };
   }
   onToolbarPreparing(e: any) {
     e.toolbarOptions.items.unshift(
@@ -218,14 +233,19 @@ export class UsersInfo {
           text: 'ویرایش',
           hint: 'ویرایش کاربر',
           onClick: () => {
-            if(!this.currentUser.nationalId){
+            if (!this.currentUser.nationalId) {
               Swal.fire({
-              text: 'کاربر مورد نظر را انتخاب کنید',
-              icon: 'warning',
-              confirmButtonText: 'تایید',
-            });
-            return;
-          }
+                text: 'کاربر مورد نظر را انتخاب کنید',
+                icon: 'warning',
+                confirmButtonText: 'تایید',
+                backdrop: true,
+                target: document.body,
+                customClass: {
+                  popup: 'custom-swal-popup',
+                },
+              });
+              return;
+            }
             this.userService.setPopupMode({
               forAddUser: false,
               forEditUser: true,
@@ -244,19 +264,29 @@ export class UsersInfo {
           hint: 'حذف کاربر',
           type: 'danger',
           onClick: () => {
-            if(!this.currentUser.nationalId){
+            if (!this.currentUser.nationalId) {
               Swal.fire({
-              text: 'کاربر مورد نظر را انتخاب کنید',
-              icon: 'warning',
-              confirmButtonText: 'تایید',
-            });
-            return;
-          }
+                text: 'کاربر مورد نظر را انتخاب کنید',
+                icon: 'warning',
+                confirmButtonText: 'تایید',
+                backdrop: true,
+                target: document.body,
+                customClass: {
+                  popup: 'custom-swal-popup',
+                },
+              });
+              return;
+            }
             Swal.fire({
               text: `آیا از حذف کاربر ${this.currentUser.firstName} ${this.currentUser.lastName} مطمئن هستید؟`,
               showCancelButton: true,
               confirmButtonText: 'بله',
               cancelButtonText: 'خیر',
+              backdrop: true,
+              target: document.body,
+              customClass: {
+                popup: 'custom-swal-popup',
+              },
             }).then((result) => {
               if (result.isConfirmed) {
                 const index = this.users.findIndex((u) => u.id === this.currentUser.id);
@@ -280,14 +310,19 @@ export class UsersInfo {
           text: 'مشاهده',
           hint: 'نمایش اطلاعات کاربر',
           onClick: () => {
-            if(!this.currentUser.nationalId){
+            if (!this.currentUser.nationalId) {
               Swal.fire({
-              text: 'کاربر مورد نظر را انتخاب کنید',
-              icon: 'warning',
-              confirmButtonText: 'تایید',
-            });
-            return;
-          }
+                text: 'کاربر مورد نظر را انتخاب کنید',
+                icon: 'warning',
+                confirmButtonText: 'تایید',
+                backdrop: true,
+                target: document.body,
+                customClass: {
+                  popup: 'custom-swal-popup',
+                },
+              });
+              return;
+            }
             this.popupMode = {
               forAddUser: false,
               forEditUser: false,

@@ -1,7 +1,4 @@
 <div class="container-fluid">
-  <!-- <div class="add-user-form">
-    <app-add-user (refreshGrid)="refreshDxGrid()"></app-add-user>
-  </div> -->
   <div class="users-list">
     <p class="list-title">لیست کاربران</p>
     <dx-data-grid
@@ -90,7 +87,7 @@
 </div>
 
 
-
+<!-- Popup -->
 <dx-popup
   [width]="700"
   [height]="600"
@@ -105,7 +102,7 @@
       : ''
   "
   [dragEnabled]="false"
-  [hideOnOutsideClick]="true"
+  [hideOnOutsideClick]="false"
   [showCloseButton]="true"
   container="body"
   [(visible)]="isPopupVisible"
@@ -228,18 +225,13 @@
           <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
         </dx-validator>
     </dx-select-box>
-      <dx-date-box [disabled]="popupMode?.forViewUser ?? false"
-        [(value)]="currentUser.birthDate"
-        placeholder="تاریخ تولد"
-        width="49%"
-        style="margin-bottom: 1rem"
-        type="date"
-        pickerType="calendar"
-      >
-       <dx-validator>
-          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
-        </dx-validator>
-      </dx-date-box>
+      <div style="width: 49%">
+        <app-date-picker
+          [name]="'birthDate'"
+          [placeholder]="'تاریخ تولد'"
+          [(ngModel)]="currentUser.birthDate"
+        ></app-date-picker>
+      </div>
 
     </div>
   </div>

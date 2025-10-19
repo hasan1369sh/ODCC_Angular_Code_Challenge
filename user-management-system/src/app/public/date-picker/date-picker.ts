@@ -19,10 +19,10 @@ export class DatePicker implements ControlValueAccessor {
 
   dateValue = new FormControl(new Date().valueOf());
 
-  @Input() width: string = '100%';
   @Input() label: string = '';
+  @Input() placeholder: string = 'YYYY/MM/DD';
   @Input() name: string = '';
-  @Input() isRequired: boolean = true;
+  @Input() isRequired: boolean = false;
   @Input() disabled: boolean = false;
 
   @Output() valueChange = new EventEmitter<any>();

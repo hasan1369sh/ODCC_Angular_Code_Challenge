@@ -9,7 +9,9 @@ import Swal from 'sweetalert2';
 export class UserManagementService {
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   userSubject: Observable<User | null> = this.user.asObservable();
-  private popupMode: BehaviorSubject<PopupMode | null> = new BehaviorSubject<PopupMode | null>(null);
+  private popupMode: BehaviorSubject<PopupMode | null> = new BehaviorSubject<PopupMode | null>(
+    null
+  );
   popupModeSubject: Observable<PopupMode | null> = this.popupMode.asObservable();
   setUser(data: User): void {
     this.user.next(data);
@@ -31,10 +33,15 @@ export class UserManagementService {
 
     if (!isValid) {
       Swal.fire({
-          text: 'لطفا همه موارد خواسته شده را با مقادیر معتبر مقدار دهی کنید',
-          icon: 'warning',
-          confirmButtonText: 'تایید'
-        });
+        text: 'لطفا همه موارد خواسته شده را با مقادیر معتبر مقدار دهی کنید',
+        icon: 'warning',
+        confirmButtonText: 'تایید',
+        backdrop: true,
+        target: document.body,
+        customClass: {
+          popup: 'custom-swal-popup',
+        },
+      });
       return false;
     }
 
