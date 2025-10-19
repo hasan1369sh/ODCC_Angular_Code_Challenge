@@ -59,10 +59,14 @@ export class UsersInfo {
         }
 
         if (this.popupMode?.forAddUser) {
+          this.currentUser.birthDate = this.currentUser.birthDate.shamsi;
+          this.currentUser.id = existingUsers.length + 1;
           existingUsers.push(this.currentUser);
-        } else {
+        } else if (this.popupMode?.forEditUser) {
           const index = existingUsers.findIndex((u) => u.id === this.currentUser.id);
           if (index !== -1) {
+          this.currentUser.birthDate = this.currentUser.birthDate.shamsi;
+          this.currentUser.id = existingUsers.length + 1;
             existingUsers[index] = this.currentUser;
           }
         }
@@ -180,7 +184,7 @@ export class UsersInfo {
     ];
   }
 
-  loadUsers() {
+  loadUsers() {debugger
     const usersJson = localStorage.getItem(this.storageKey);
     this.users = usersJson ? JSON.parse(usersJson) : [];
   }
