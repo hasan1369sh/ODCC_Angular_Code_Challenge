@@ -1,16 +1,25 @@
+// export interface Education {
+//   key: number;
+//   value: string;
+//   id: number;
+// }
 export interface Education {
-  key: number;
+  text: string;
   value: string;
-  id: number;
 }
 
+export interface PopupMode{
+  forAddUser: boolean;
+  forEditUser: boolean;
+  forViewUser: boolean
+}
 export class User {
   id: number = 0;
   firstName: string = '';
   lastName: string = '';
-  age: number = 0;
+  age: string = '';
   education: Education | null = null;
   profilePhoto: string = '';
-  nationalId: number = 0;
+  nationalId: string = '';
   birthDate: any | null = null;
 }

@@ -1,7 +1,7 @@
 <div class="container-fluid">
-  <div class="add-user-form">
+  <!-- <div class="add-user-form">
     <app-add-user (refreshGrid)="refreshDxGrid()"></app-add-user>
-  </div>
+  </div> -->
   <div class="users-list">
     <p class="list-title">لیست کاربران</p>
     <dx-data-grid
@@ -20,39 +20,11 @@
       [allowColumnReordering]="true"
       [filterRow]="{ visible: true }"
       [searchPanel]="{ visible: true, placeholder: 'جستجو در کاربران...' }"
+      (onToolbarPreparing)="onToolbarPreparing($event)"
       [paging]="{ pageSize: 10, pageIndex: 0 }"
-      [editing]="{
-        mode: 'popup',
-        allowUpdating: true,
-        allowAdding: false,
-        allowDeleting: false,
-        useIcons: true,
-        popup: {
-          title: 'ویرایش اطلاعات کاربر',
-          showTitle: true,
-          width: 500,
-          height: 'auto'
-        },
-        form: {
-          colCount: 2,
-          items: [
-            { dataField: 'firstName', label: { text: 'نام' } },
-            { dataField: 'lastName', label: { text: 'نام خانوادگی' } },
-            { dataField: 'age', label: { text: 'سن' } },
-            { dataField: 'education', label: { text: 'تحصیلات' } },
-            { dataField: 'nationalId', label: { text: 'کد ملی' } },
-            { dataField: 'birthDate', label: { text: 'تاریخ تولد' }, editorType: 'dxDateBox' }
-          ]
-        },
-        texts: {
-          saveRowChanges: 'ذخیره',
-          cancelRowChanges: 'انصراف'
-        }
-      }"
       [columnMinWidth]="100"
       [wordWrapEnabled]="true"
       (onRowClick)="selectedUser($event)"
-      (onRowUpdated)="onRowUpdated($event)"
     >
       <!-- تصویر -->
       <dxi-column
@@ -101,16 +73,10 @@
         [width]="120"
       ></dxi-column>
 
-      <!-- عملیات -->
-      <dxi-column caption="عملیات" type="buttons" [width]="120" alignment="center">
-        <dxi-button icon="edit" hint="ویرایش" [onClick]="onEdit"></dxi-button>
-        <dxi-button icon="trash" hint="حذف" [onClick]="onDelete"></dxi-button>
-      </dxi-column>
-
       <!-- قالب تصویر -->
       <div *dxTemplate="let data of 'photoTemplate'">
         @if(data.value){
-        <img [src]="data.value" alt="Profile" class="profile-photo" />
+        <img [src]="data.value" alt="Profile" class="profile-photo" [name]="'grid_img'" />
         }@else {
         <ng-template #noPhoto>
           <div class="no-photo">
@@ -122,3 +88,159 @@
     </dx-data-grid>
   </div>
 </div>
+
+
+
+<dx-popup
+  [width]="700"
+  [height]="600"
+  [showTitle]="true"
+  [title]="
+    popupMode?.forViewUser
+      ? 'مشاهده اطلاعات کاربر'
+      : popupMode?.forAddUser
+      ? 'افزودن کاربر جدید'
+      : popupMode?.forEditUser
+      ? 'ویرایش کاربر انتخاب شده'
+      : ''
+  "
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="true"
+  container="body"
+  [(visible)]="isPopupVisible"
+>
+  <dxi-popup-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="before"
+    [options]="cancleButtonOptions"
+  >
+  </dxi-popup-toolbar-item>
+  <dxi-popup-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="insertButtonOptions"
+  >
+  </dxi-popup-toolbar-item>
+  <dxo-position my="center top" at="center top" [offset]="{ x: 0, y: 32 }"> </dxo-position>
+  <div *dxTemplate="let data of 'content'">
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      "
+    >
+    <div style="width: 100%; height:235px">
+      <div style="height: 50px; width: 150px; margin:0 auto ">
+        <div style="text-align: center; margin-top: 1rem" >
+            <img
+            [name]="'popup_image'"
+            [src]="currentUser.profilePhoto? currentUser.profilePhoto : '/images.png'"
+            alt="پروفایل"
+            style="max-width: 150px; border-radius: 4px;max-height: 150px"
+          />
+        </div>
+        <dx-button
+         [disabled]="popupMode?.forViewUser ?? false"
+          style="
+            border-bottom: 1px solid #b9b9b9;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            width: 100% !important;
+            height: 100%;
+            background: rgb(243, 243, 243) !important;
+            transition: background 0.2s;
+          "
+          (click)="fileInput.click()"
+        >
+          {{ currentUser.profilePhoto ? 'تغییر تصویر' : 'انتخاب تصویر' }}
+        </dx-button>
+
+        <input
+         [disabled]="popupMode?.forViewUser"
+          #fileInput
+          type="file"
+          accept="image/*"
+          style="display: none"
+          (change)="onFileSelected($event)"
+        />
+
+      </div>
+    </div>
+      <dx-text-box
+        [disabled]="popupMode?.forViewUser ?? false"
+        [(value)]="currentUser.firstName"
+        placeholder="نام"
+        width="49%"
+        style="margin-bottom: 1rem"
+        vali
+      >
+      <dx-validator>
+          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
+        </dx-validator>
+    </dx-text-box>
+      <dx-text-box [disabled]="popupMode?.forViewUser ?? false"
+        [(value)]="currentUser.lastName"
+        placeholder="نام خانوادگی"
+        width="49%"
+        style="margin-bottom: 1rem"
+      >
+      <dx-validator>
+          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
+        </dx-validator>
+    </dx-text-box>
+      <dx-text-box [disabled]="popupMode?.forViewUser ?? false"
+        [(value)]="currentUser.nationalId"
+        placeholder="کد ملی"
+        width="49%"
+        style="margin-bottom: 1rem"
+      >
+       <dx-validator>
+          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
+        </dx-validator>
+    </dx-text-box>
+      <dx-text-box [disabled]="popupMode?.forViewUser ?? false"
+        [(value)]="currentUser.age"
+        placeholder="سن"
+        width="49%"
+        style="margin-bottom: 1rem"
+      >
+       <dx-validator>
+          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
+        </dx-validator>
+    </dx-text-box>
+      <dx-select-box [disabled]="popupMode?.forViewUser ?? false"
+        [(value)]="currentUser.education"
+        [items]="educations"
+        displayExpr="text"
+        valueExpr="value"
+        placeholder="تحصیلات"
+        width="49%"
+        style="margin-bottom: 1rem"
+      >
+       <dx-validator>
+          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
+        </dx-validator>
+    </dx-select-box>
+      <dx-date-box [disabled]="popupMode?.forViewUser ?? false"
+        [(value)]="currentUser.birthDate"
+        placeholder="تاریخ تولد"
+        width="49%"
+        style="margin-bottom: 1rem"
+        type="date"
+        pickerType="calendar"
+      >
+       <dx-validator>
+          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
+        </dx-validator>
+      </dx-date-box>
+
+    </div>
+  </div>
+</dx-popup>

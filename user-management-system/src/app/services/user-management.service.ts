@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../models/user-interfaces';
+import { PopupMode, User } from '../models/user-interfaces';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
 export class UserManagementService {
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   userSubject: Observable<User | null> = this.user.asObservable();
-  private isNewUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-  isNewUserSubject: Observable<boolean> = this.isNewUser.asObservable();
+  private popupMode: BehaviorSubject<PopupMode | null> = new BehaviorSubject<PopupMode | null>(null);
+  popupModeSubject: Observable<PopupMode | null> = this.popupMode.asObservable();
   setUser(data: User): void {
     this.user.next(data);
   }
@@ -21,9 +21,9 @@ export class UserManagementService {
       user.lastName &&
       user.lastName.trim().length > 0 &&
       user.age &&
-      user.age > 0 &&
+      +user.age > 0 &&
       user.nationalId &&
-      user.nationalId.toString().length === 10 &&
+      user.nationalId.length === 10 &&
       user.education &&
       user.birthDate &&
       user.profilePhoto &&
@@ -44,11 +44,11 @@ export class UserManagementService {
     return this.user.getValue();
   }
 
-  setIsNewUser(flag: boolean): void {
-    this.isNewUser.next(flag);
+  setPopupMode(newMode: PopupMode): void {
+    this.popupMode.next(newMode);
   }
 
-  getIsNewUser(): boolean {
-    return this.isNewUser.getValue();
+  getPopupMode(): PopupMode | null {
+    return this.popupMode.getValue();
   }
 }

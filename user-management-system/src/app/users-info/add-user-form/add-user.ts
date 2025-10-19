@@ -32,36 +32,36 @@ export class AddUser {
       }
     }
     });
-    this.userService.isNewUserSubject.subscribe((res:any)=>{
-      this.isNewUser = res;
-    })
-    this.educations = [
-      {
-        id: 0,
-        key: 0,
-        value: 'انتخاب کنید'
-      },
-      {
-        id: 1,
-        key: 1001,
-        value: 'دیپلم'
-      },
-      {
-        id: 2,
-        key: 1002,
-        value: 'کارشناسی'
-      },
-      {
-        id: 3,
-        key: 1003,
-        value: 'کارشناسی ارشد'
-      },
-      {
-        id: 4,
-        key: 1004,
-        value: 'دکتری'
-      }
-    ];
+    // this.userService.isNewUserSubject.subscribe((res:any)=>{
+    //   this.isNewUser = res;
+    // })
+    // this.educations = [
+    //   {
+    //     id: 0,
+    //     key: 0,
+    //     value: 'انتخاب کنید'
+    //   },
+    //   {
+    //     id: 1,
+    //     key: 1001,
+    //     value: 'دیپلم'
+    //   },
+    //   {
+    //     id: 2,
+    //     key: 1002,
+    //     value: 'کارشناسی'
+    //   },
+    //   {
+    //     id: 3,
+    //     key: 1003,
+    //     value: 'کارشناسی ارشد'
+    //   },
+    //   {
+    //     id: 4,
+    //     key: 1004,
+    //     value: 'دکتری'
+    //   }
+    // ];
   }
   onCancel(){
     this.user = new User();

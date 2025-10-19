@@ -13,9 +13,12 @@ import { CustomBtn } from './public/custom-btn/custom-btn';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PhotoUpload } from './public/photo-upload/photo-upload';
-import { DxDataGridModule } from 'devextreme-angular';
+import { DxDataGridModule, DxPopupComponent, DxTextBoxComponent, DxDateBoxComponent, DxSelectBoxComponent, DxFileUploaderComponent, DxButtonComponent, DxValidatorComponent } from 'devextreme-angular';
 import { OnlyNumberDirective } from './directives/only-number';
 import { LettersOnlyDirective } from './directives/only-letter';
+import { DxiPopupToolbarItemComponent } from "devextreme-angular/ui/popup";
+
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 @NgModule({
   declarations: [
     App,
@@ -37,7 +40,15 @@ import { LettersOnlyDirective } from './directives/only-letter';
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
-    DxDataGridModule
+    DxDataGridModule,
+    DxPopupComponent,
+    DxiPopupToolbarItemComponent,
+    DxTextBoxComponent,
+    DxDateBoxComponent,
+    DxSelectBoxComponent,
+    DxFileUploaderComponent,
+    DxButtonComponent,
+    DxValidatorComponent
 ],
   providers: [
     provideBrowserGlobalErrorListeners()
@@ -45,3 +56,5 @@ import { LettersOnlyDirective } from './directives/only-letter';
   bootstrap: [App]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
