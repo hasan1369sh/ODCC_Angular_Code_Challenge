@@ -218,6 +218,14 @@ export class UsersInfo {
           text: 'ویرایش',
           hint: 'ویرایش کاربر',
           onClick: () => {
+            if(!this.currentUser.nationalId){
+              Swal.fire({
+              text: 'کاربر مورد نظر را انتخاب کنید',
+              icon: 'warning',
+              confirmButtonText: 'تایید',
+            });
+            return;
+          }
             this.userService.setPopupMode({
               forAddUser: false,
               forEditUser: true,
@@ -236,6 +244,14 @@ export class UsersInfo {
           hint: 'حذف کاربر',
           type: 'danger',
           onClick: () => {
+            if(!this.currentUser.nationalId){
+              Swal.fire({
+              text: 'کاربر مورد نظر را انتخاب کنید',
+              icon: 'warning',
+              confirmButtonText: 'تایید',
+            });
+            return;
+          }
             Swal.fire({
               text: `آیا از حذف کاربر ${this.currentUser.firstName} ${this.currentUser.lastName} مطمئن هستید؟`,
               showCancelButton: true,
@@ -264,6 +280,14 @@ export class UsersInfo {
           text: 'مشاهده',
           hint: 'نمایش اطلاعات کاربر',
           onClick: () => {
+            if(!this.currentUser.nationalId){
+              Swal.fire({
+              text: 'کاربر مورد نظر را انتخاب کنید',
+              icon: 'warning',
+              confirmButtonText: 'تایید',
+            });
+            return;
+          }
             this.popupMode = {
               forAddUser: false,
               forEditUser: false,
