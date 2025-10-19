@@ -174,43 +174,35 @@
         [disabled]="popupMode?.forViewUser ?? false"
         [(value)]="currentUser.firstName"
         placeholder="نام"
+        appLettersOnly
         width="49%"
         style="margin-bottom: 1rem"
         vali
       >
-      <dx-validator>
-          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
-        </dx-validator>
     </dx-text-box>
       <dx-text-box [disabled]="popupMode?.forViewUser ?? false"
         [(value)]="currentUser.lastName"
         placeholder="نام خانوادگی"
+        appLettersOnly
         width="49%"
         style="margin-bottom: 1rem"
       >
-      <dx-validator>
-          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
-        </dx-validator>
     </dx-text-box>
       <dx-text-box [disabled]="popupMode?.forViewUser ?? false"
         [(value)]="currentUser.nationalId"
         placeholder="کد ملی"
+        appOnlyNumber
         width="49%"
         style="margin-bottom: 1rem"
       >
-       <dx-validator>
-          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
-        </dx-validator>
     </dx-text-box>
       <dx-text-box [disabled]="popupMode?.forViewUser ?? false"
         [(value)]="currentUser.age"
         placeholder="سن"
+        appOnlyNumber
         width="49%"
         style="margin-bottom: 1rem"
       >
-       <dx-validator>
-          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
-        </dx-validator>
     </dx-text-box>
       <dx-select-box [disabled]="popupMode?.forViewUser ?? false"
         [(value)]="currentUser.education"
@@ -221,9 +213,6 @@
         width="49%"
         style="margin-bottom: 1rem"
       >
-       <dx-validator>
-          <dxi-validation-rule type="required" message="فیلد الزامی است"></dxi-validation-rule>
-        </dx-validator>
     </dx-select-box>
       <div style="width: 49%">
         <app-date-picker
